@@ -1,0 +1,14 @@
+html {
+    font-family: Arial, serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+#map {
+    height: calc(100vh - 150px);
+}
