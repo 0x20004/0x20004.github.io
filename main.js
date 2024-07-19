@@ -1,5 +1,4 @@
 const LOCAL_STORAGE_KEY_ACHIEVED_STAMPS = 'achieved_stamps'
-const MAX_STAMP_NUMBER = 222
 const ICON_STAMP_UNACHIEVED = L.icon({
     iconUrl: 'images/markers/red.png',
     iconAnchor: L.point(16, 32),
@@ -70,6 +69,17 @@ const handleImportAchievedStampsFileChange = event => {
         reader.onerror = () => {
             alert('Die Datei konnte nicht geladen werden.')
         }
+    }
+}
+
+const flyToMarker = () => {
+    const stampToFocus = parseInt(document.getElementById('stampSearchInput').value, 10)
+    if (stampToFocus <= 0 || stampToFocus > MAX_STAMP_NUMBER) {
+        return
+    }
+    const location = locations.find(location => location.stamp_number === stampToFocus)
+    if (location) {
+        Map.flyTo([location.coords.lat, location.coords.lng], 15)
     }
 }
 

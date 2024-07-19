@@ -1775,3 +1775,4 @@ const locations = [{
     "stamp_number": 20,
     "title": "Stempelstelle 20 / Barenberg (Aussichtspunkt)",
 }]
+const MAX_STAMP_NUMBER = locations.length

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Harzer Wandernadel Stempelstellen</title>
@@ -13,7 +14,7 @@
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <script src="https://erasta.github.io/Leaflet.RotatedMarker/leaflet.rotatedMarker.js"></script>
         <script src="locations.js"></script>
-        <script src="main.js"></script>
+        <script src="main.js" defer></script>
     </head>
     <body>
         <div class="header">
@@ -25,15 +26,22 @@
                     Menü
                 </span>
                 <div class="header-option-dropdown-content">
-                    <button onclick="exportAchievedStamps()">
-                        Export progress
-                    </button>
-                    <a id="downloadAnchorElement" style="display:none"></a>
-
-                    <button onclick="importAchievedStamps()">
-                        Import progress
-                    </button>
-                    <input type="file" id="uploadAnchorElement" style="display:none" />
+                    <div>
+                        <button onclick="exportAchievedStamps()">
+                            Export progress
+                        </button>
+                        <a id="downloadAnchorElement" style="display:none"></a>
+                    </div>
+                    <div>
+                        <button onclick="importAchievedStamps()">
+                            Import progress
+                        </button>
+                        <input type="file" id="uploadAnchorElement" style="display:none" />
+                    </div>
+                    <div class="">
+                        <input type="number" min="1" max="222" id="stampSearchInput" />
+                        <button onClick="flyToMarker()">Suchen</button>
+                    </div>
                 </div>
             </div>
         </div>
