@@ -50,6 +50,10 @@ const importAchievedStamps = async () => {
     uploadAnchorElement.click()
 }
 
+const openFeedbackForm = () => {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSdm7arwmSU5p5uguFIEWzzDujIvgltx14B4-gOl80go7qWL3Q/viewform?usp=sf_link', '_blank')
+}
+
 const handleImportAchievedStampsFileChange = event => {
     const uploadAnchorElement = document.getElementById('uploadAnchorElement')
     const file = uploadAnchorElement.files[0]
@@ -122,15 +126,30 @@ const initMap = () => {
     addMarkers()
 }
 
+const initCompass = async () => {
+    const sensor = new Magnetometer()
+    sensor.onreading = () => {
+        console.log("Magnetic field along the X-axis " + sensor.x)
+        console.log("Magnetic field along the Y-axis " + sensor.y)
+        console.log("Magnetic field along the Z-axis " + sensor.z)
+
+        document.getElementById("x").innerHTML = "X = " + sensor.x
+        document.getElementById("y").innerHTML = "Y = " + sensor.y
+        document.getElementById("z").innerHTML = "Z = " + sensor.z
+        MapMarkerGpsPosition.setRotationAngle(sensor.y)
+    }
+    sensor.start()
+}
+
 const initGPS = () => {
     if (navigator.geolocation) {
-        MapRadiusGpsPosition = L.circle([0,0], 0).addTo(Map);
+        MapRadiusGpsPosition = L.circle([0,0], 0).addTo(Map)
         MapMarkerGpsPosition = L.marker(
             [0, 0],
             {
                 icon: ICON_POSITION,
             }
-        ).addTo(Map);
+        ).addTo(Map)
 
         navigator.geolocation.watchPosition(position => {
             const latLng = L.latLng(position.coords.latitude, position.coords.longitude)
@@ -139,11 +158,9 @@ const initGPS = () => {
 
             MapRadiusGpsPosition.setLatLng(latLng)
             MapRadiusGpsPosition.setRadius(position.coords.accuracy >= 50 ? position.coords.accuracy : 0)
+        })
 
-            if (position.coords.heading) {
-                MapMarkerGpsPosition.setRotationAngle(position.coords.heading)
-            }
-        });
+        initCompass()
     }
 }
 
@@ -154,5 +171,5 @@ addEventListener('DOMContentLoaded', () => {
     uploadAnchorElement.addEventListener('change', handleImportAchievedStampsFileChange, false)
 
     initGPS()
-});
+})
 
